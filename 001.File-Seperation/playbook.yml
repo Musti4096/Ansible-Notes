@@ -2,7 +2,6 @@
 -
   name: Deploy Web Application
   hosts: db_and_web_server1,db_and_web_server2
-  
   tasks:
     - name: Install all required dependencies
       apt: name={{ item }} state=installed force=yes
@@ -22,10 +21,25 @@
     
     - name: Start MySQL database
       service: 
-        name: mysql
+        name: "{{ db_name }}"
         state: started
         enabled: yes
     
     - name: Create Application database
       mysql_db: name=employee_db state=present
-       
+
+    - name: Create Database User
+      mysql_user:
+        name: "{{ db_user }}"
+        password: "{{ db_password }}"
+        priv: '*.*:ALL'
+        state: present
+        host: '%'
+
+    - name: Install Python Flask Dependencies
+      pip: 
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - flask
+        - flask_mysql 
