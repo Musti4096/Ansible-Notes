@@ -1,5 +1,6 @@
-#Ansible Tasks File tasks/deploy_db.yaml
-- name: Install MySQL database
+---
+# tasks file for mysql_db
+    - name: Install MySQL database
       apt: name={{ item }} state=installed force=yes
       with_items:
         - mysql-server
