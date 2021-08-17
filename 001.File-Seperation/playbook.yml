@@ -11,35 +11,6 @@
         - python-dev
         - build-essentials
         - python-pip
-        - python-mysqldb
-
-    - name: Install MySQL database
-      apt: name={{ item }} state=installed force=yes
-      with_items:
-        - mysql-server
-        - mysql-client
-    
-    - name: Start MySQL database
-      service: 
-        name: "{{ db_name }}"
-        state: started
-        enabled: yes
-    
-    - name: Create Application database
-      mysql_db: name=employee_db state=present
-
-    - name: Create Database User
-      mysql_user:
-        name: "{{ db_user }}"
-        password: "{{ db_password }}"
-        priv: '*.*:ALL'
-        state: present
-        host: '%'
-
-    - name: Install Python Flask Dependencies
-      pip: 
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - flask
-        - flask_mysql 
+        - python-mysqldb    
+    - include: tasks/deploy_db.yaml
+    - include: tasks/deploy_web.yml
