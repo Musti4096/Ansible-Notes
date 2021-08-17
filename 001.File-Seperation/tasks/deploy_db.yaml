@@ -1,0 +1,10 @@
+#Ansible Tasks File tasks/deploy_db.yaml
+- name: Install dependencies
+
+- name: Install MySQL database
+
+- name: Start MySQL Service 
+
+- name: Create Application Database 
+
+- name: Create Application DB User

@@ -1,0 +1,6 @@
+#Ansible Tasks File tasks/deploy_web.yml
+- name: Install Python Flask dependencies
+
+- name: Copy web-server code
+
+- name: Run Web-Server

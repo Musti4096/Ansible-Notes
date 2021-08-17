@@ -1,0 +1,31 @@
+#Ansible Playbook
+-
+  name: Deploy Web Application
+  hosts: db_and_web_server1,db_and_web_server2
+  
+  tasks:
+    - name: Install all required dependencies
+      apt: name={{ item }} state=installed force=yes
+      with_items:
+        - python
+        - python-setuptools
+        - python-dev
+        - build-essentials
+        - python-pip
+        - python-mysqldb
+
+    - name: Install MySQL database
+      apt: name={{ item }} state=installed force=yes
+      with_items:
+        - mysql-server
+        - mysql-client
+    
+    - name: Start MySQL database
+      service: 
+        name: mysql
+        state: started
+        enabled: yes
+    
+    - name: Create Application database
+      mysql_db: name=employee_db state=present
+       
