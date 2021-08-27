@@ -2,6 +2,7 @@
 -
   name: Deploy Web Application
   hosts: db_and_web_server1,db_and_web_server2
+  become: true
   tasks:
     - name: Install all required dependencies
       apt: name={{ item }} state=installed force=yes
